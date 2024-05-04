@@ -47,6 +47,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (config('app.env') === 'production') {
+            \URL::forceScheme('https');
+        }
         //
         Password::defaults(function () {
             return Password::min(8)
