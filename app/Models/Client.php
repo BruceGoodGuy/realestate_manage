@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -22,4 +23,13 @@ class Client extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function contracts()
+    {
+        return $this->hasMany(\App\Models\Contract::class, 'client_id', 'id')->where('status', '!=', 'cancel');
+    }
+    public function wallet()
+    {
+        return $this->hasOne(\App\Models\Wallet::class, 'client_id', 'id');
+    }
 }

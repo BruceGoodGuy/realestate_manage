@@ -58,7 +58,7 @@
             </li>
             <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle active">
-                    <i data-feather="book" class="menu-icon tf-icons"></i>
+                    <i data-feather="archive" class="menu-icon tf-icons"></i>
                     <span class="title">Tài sản</span>
                 </a>
                 <ul class="menu-sub">
@@ -72,11 +72,47 @@
                             Thêm mới
                         </a>
                     </li>
-                    <li class="menu-item">
+                    {{-- <li class="menu-item">
                         <a href="lesson-preview.html" class="menu-link">
                             Thiết lập
                         </a>
+                    </li> --}}
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle active">
+                    <i data-feather="dollar-sign" class="menu-icon tf-icons"></i>
+                    <span class="title">Điểm và thưởng</span>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{route('setting.index')}}" class="menu-link">
+                            Thiết lập
+                        </a>
                     </li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle active">
+                    <i data-feather="edit" class="menu-icon tf-icons"></i>
+                    <span class="title">Hợp đồng</span>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{ route('contract.index') }}" class="menu-link">
+                            Danh sách
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('contract.add') }}" class="menu-link">
+                            Thêm mới
+                        </a>
+                    </li>
+                    {{-- <li class="menu-item">
+                        <a href="lesson-preview.html" class="menu-link">
+                            Thiết lập
+                        </a>
+                    </li> --}}
                 </ul>
             </li>
             <li class="menu-item">
@@ -98,130 +134,6 @@
                     <li class="menu-item">
                         <a href="lesson-preview.html" class="menu-link">
                             Thiết lập
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle active">
-                    <i data-feather="activity" class="menu-icon tf-icons"></i>
-                    <span class="title">Analytics</span>
-                </a>
-                <ul class="menu-sub">
-                    <li class="menu-item">
-                        <a href="customers.html" class="menu-link">
-                            Customers
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="reports.html" class="menu-link">
-                            Reports
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle active">
-                    <i data-feather="shopping-cart" class="menu-icon tf-icons"></i>
-                    <span class="title">eCommerce</span>
-                </a>
-                <ul class="menu-sub">
-                    <li class="menu-item">
-                        <a href="products.html" class="menu-link">
-                            Products
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="product-details.html" class="menu-link">
-                            Product Details
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="create-product.html" class="menu-link">
-                            Create Product
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="orders-list.html" class="menu-link">
-                            Orders List
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="order-details.html" class="menu-link">
-                            Order Details
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="customers-2.html" class="menu-link">
-                            Customers
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="cart.html" class="menu-link">
-                            Cart
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="checkout.html" class="menu-link">
-                            Checkout
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="sellers.html" class="menu-link">
-                            Sellers
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle active">
-                    <i data-feather="layers" class="menu-icon tf-icons"></i>
-                    <span class="title">Pages</span>
-                </a>
-                <ul class="menu-sub">
-                    <li class="menu-item">
-                        <a href="profile-2.html" class="menu-link">
-                            Profile
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="pricing.html" class="menu-link">
-                            Pricing
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="timeline.html" class="menu-link">
-                            Timeline
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="faq.html" class="menu-link">
-                            FAQ
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="blogs.html" class="menu-link">
-                            Blogs
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="blog-details.html" class="menu-link">
-                            Blog Details
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="gallery.html" class="menu-link">
-                            Gallery
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="contact-us.html" class="menu-link">
-                            Contact Us
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="404-error.html" class="menu-link">
-                            404 Error Page
                         </a>
                     </li>
                 </ul>

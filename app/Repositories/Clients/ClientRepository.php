@@ -12,6 +12,7 @@ use App\Models\Referrals;
 use App\Services\Client;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Wallet;
 
 use stdClass;
 use Throwable;
@@ -46,6 +47,7 @@ class ClientRepository extends EloquentRepository implements ClientRepositoryInt
             if (!$relationstatus->success) {
                 $response->warning = $relationstatus->message;
             }
+            $this->createWallet($user->id);
         } catch (Throwable $error) {
             makeLog($error, 'storeClient');
             $response->success = false;
@@ -110,9 +112,8 @@ class ClientRepository extends EloquentRepository implements ClientRepositoryInt
                 $fields[] = 'referrals.ref_userid';
                 $clientquery = $clientquery->leftJoin('referrals', 'clients.id', '=', 'referrals.userid', 'referral_code');
             }
-            $client = $clientquery->select($fields)->where('clients.id', $clientID)
+            $client = $clientquery->select($fields)->with(['contracts', 'contracts.property', 'wallet'])->where('clients.id', $clientID)
                 ->firstOrFail()->toArray();
-
             if ($withreferral && !is_null($client['ref_userid'])) {
                 $referraluser = $this->_model->selectRaw('id, CONCAT(lastname, " ", firstname) as fullname, referral_code, status')
                     ->where('id', $client['ref_userid'])->first();
@@ -234,6 +235,16 @@ class ClientRepository extends EloquentRepository implements ClientRepositoryInt
         request()->user()->currentAccessToken()->delete();
     }
 
+    private function createWallet(int $clientid)
+    {
+        Wallet::create([
+            'client_id' => $clientid,
+            'point' => 0,
+            'diamond' => 0,
+            'status' => 1,
+        ]);
+    }
+
     private function getChilds(int $clientids)
     {
         $parents = [];
@@ -260,7 +271,7 @@ class ClientRepository extends EloquentRepository implements ClientRepositoryInt
                         'name' => $d->firstname . ' ' . $d->lastname,
                         'title' => $d->phone,
                         'current' => "Hiện tại",
-                        'status' => $d->status == 1 ? 'Kích hoạt' : 'Chưa kích hoạt',
+                        'status' => (int) $d->status == 1 ? 'Kích hoạt' : 'Chưa kích hoạt',
                     ],
                     'image' => asset('assets/images/admin.jpg'),
                 ];
@@ -277,7 +288,7 @@ class ClientRepository extends EloquentRepository implements ClientRepositoryInt
                         'text' => [
                             'name' => $d->firstname . ' ' . $d->lastname,
                             'title' => $d->phone,
-                            'status' => $d->status == 1 ? 'Kích hoạt' : 'Chưa kích hoạt',
+                            'status' => (int) $d->status == 1 ? 'Kích hoạt' : 'Chưa kích hoạt',
                         ],
                         'image' => asset('assets/images/admin.jpg'),
                     ];
@@ -286,14 +297,14 @@ class ClientRepository extends EloquentRepository implements ClientRepositoryInt
                     'text' => [
                         'name' => $d->firstname . ' ' . $d->lastname,
                         'title' => $d->phone,
-                        'status' => $d->status == 1 ? 'Kích hoạt' : 'Chưa kích hoạt',
+                        'status' => (int) $d->status == 1 ? 'Kích hoạt' : 'Chưa kích hoạt',
                     ],
                     'image' => asset('assets/images/admin.jpg'),
                 ];
             }
         }
         if (empty($parents)) {
-            $parent = $this->_model->select(['firstname', 'lastname', 'phone'])->find($clientids);
+            $parent = $this->_model->select(['firstname', 'lastname', 'phone', 'status'])->find($clientids);
             $parents = [
                 'text' => [
                     'name' => $parent->firstname . ' ' . $parent->lastname,
@@ -308,6 +319,7 @@ class ClientRepository extends EloquentRepository implements ClientRepositoryInt
         if (!empty($childs)) {
             $parents['children'][] = $childs;
         }
+
         return (object) $parents;
     }
 

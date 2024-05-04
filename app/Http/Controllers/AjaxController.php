@@ -38,6 +38,7 @@ class AjaxController extends APIController
 
     public function deleteDraftFile(Request $request)
     {
+
         if (!$request->has('path') || strpos($request->path, "draft/images/") !== 0) {
             return "not ok";
         }

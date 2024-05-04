@@ -57,4 +57,55 @@ class PropertyController extends Controller
 
         return view('property.list', ['properties' => $response->data]);
     }
+
+    public function view(Request $request, int $id)
+    {
+        $response = $this->_propertyinterface->getProperty($id);
+
+        if (!$response->success) {
+            return redirect()->route('property.index')->withErrors(['general_errors' => $response->message]);
+        }
+
+        return view('property.view', ['property' => $response->data]);
+    }
+
+    public function edit(Request $request, int $id)
+    {
+        $response = $this->_propertyinterface->getProperty($id);
+        if (!$response->success) {
+            return redirect()->route('property.index')->withErrors(['general_errors' => $response->message]);
+        }
+
+        return view('property.edit', ['property' => $response->data]);
+    }
+
+    public function update(\App\Http\Requests\PropertyRequest $request, $id)
+    {
+        $propertydata = $request->only([
+            'name',
+            'note',
+            'price',
+            'address',
+            'content',
+            'active',
+            'province_value',
+            'district_value',
+            'avatar',
+            'avatar_name',
+            'ward_value',
+            'active',
+        ]);
+
+        $propertydata['id'] = $id;
+
+        $response = $this->_propertyinterface->updateProperty($propertydata);
+
+        if (!$response->success) {
+            return redirect()->back()->withInput()->withErrors(['general_errors' => $response->message]);
+        }
+
+        return redirect()->route('property.view', $id)->with([
+            'message' => $response->message, 'warning' => $response->warning,
+        ]);
+    }
 }

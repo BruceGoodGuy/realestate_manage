@@ -54,6 +54,9 @@
             title: 'img-responsive',
             value: 'img-responsive'
         }, ],
+        // relative_urls: false,
+        // remove_script_host: false,
+        // convert_urls: true,
         toolbar: 'fullscreen | insertdatetime emoticons | undo redo | blocks | bold italic forecolor backcolor| alignleft aligncenter alignright | indent outdent | bullist numlist | code | table | link image',
         image_title: true,
         automatic_uploads: true,

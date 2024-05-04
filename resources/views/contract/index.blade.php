@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-        <h3 class="mb-sm-0 mb-1 fs-18">Danh sách tài sản</h3>
+        <h3 class="mb-sm-0 mb-1 fs-18">Danh sách hợp đồng</h3>
         <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
             <li>
                 <a href="{{ route('dashboard') }}" class="text-decoration-none">
@@ -9,7 +9,7 @@
                 </a>
             </li>
             <li>
-                <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Tài sản</span>
+                <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Hợp đồng</span>
             </li>
         </ul>
     </div>
@@ -20,8 +20,8 @@
         @endif
 
         <div class="col-lg-12">
-            <a href="{{ route('property.add') }}" class="text-no-decoration">
-                <button class="btn btn-success mb-3 text-white">Thêm mới tài sản</button>
+            <a href="{{ route('contract.add') }}" class="text-no-decoration">
+                <button class="btn btn-success mb-3 text-white">Thêm mới hợp đồng</button>
             </a>
 
             <div class="card bg-white border-0 rounded-10 mb-4">
@@ -35,17 +35,20 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
                                                     id="flexCheckDefault">
-                                                <label class="form-check-label ms-2" for="flexCheckDefault">Tên</label>
+                                                <label class="form-check-label ms-2" for="flexCheckDefault">Tên hợp
+                                                    đồng</label>
                                             </div>
                                         </th>
-                                        <th scope="col">Vị trí</th>
-                                        <th scope="col">Giá</th>
+                                        <th scope="col">Khách hàng</th>
+                                        <th scope="col">Tài sản</th>
+                                        <th scope="col">Giá giao dịch</th>
+                                        <th scope="col">Ngày duyệt</th>
                                         <th scope="col">Trạng thái</th>
                                         <th scope="col">Công Cụ</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($properties as $key => $property)
+                                    @foreach ($contracts as $key => $contract)
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
@@ -54,15 +57,10 @@
                                                             id="flexCheckDefault{{ $key }}">
                                                     </div>
                                                     <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0 lh-1">
-                                                            <img src="{{ $property->avatar ? asset('storage/' . $property->avatar) : asset('assets/images/default-house.png' . $property->avatar) }}"
-                                                                class="wh-44 rounded" alt="user">
-                                                        </div>
                                                         <div class="flex-grow-1 ms-10">
-                                                            <h4 class="fw-semibold fs-16 mb-0">{{ $property->name }}
+                                                            <h4 class="fw-semibold fs-16 mb-0">{{ $contract->name }}
                                                             </h4>
-                                                            <span class="text-gray-light">{{ $property->note }}</span>
-                                                            @if (\Session::has('pid') && \Session::get('pid') === $property->id)
+                                                            @if (\Session::has('contractid') && \Session::get('contractid') === $contract->id)
                                                                 <span class="text-danger">(Mới thêm)</span>
                                                             @endif
                                                         </div>
@@ -70,13 +68,19 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                {{ $property->province }}
+                                                <span>{{ $contract->lastname . ' ' . $contract->firstname }}</span>
                                             </td>
                                             <td>
-                                                <span> {{ $property->price }}</span>
+                                                <span>{{ $contract->pname }}</span>
                                             </td>
                                             <td>
-                                                <x-client-status :status="$property->status"></x-client-status>
+                                                <span>{{ $contract->price }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ $contract->active_date }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ $contract->status }}</span>
                                             </td>
                                             <td>
                                                 <div class="dropdown action-opt">
@@ -88,18 +92,24 @@
                                                         class="dropdown-menu dropdown-menu-end bg-white border box-shadow">
                                                         <li>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('property.view', $property->id) }}">
+                                                                href="{{ route('contract.view', $contract->id) }}">
                                                                 <i data-feather="eye"></i>
                                                                 Xem
                                                             </a>
                                                         </li>
-                                                        <li>
+                                                        {{-- <li>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('property.edit', $property->id) }}">
+                                                                href="{{ route('client.edit', $contract->id) }}">
                                                                 <i data-feather="edit-3"></i>
                                                                 Chỉnh sửa
                                                             </a>
-                                                        </li>
+                                                        </li> --}}
+                                                        {{-- <li>
+                                                            <a class="dropdown-item" href="javascript:;">
+                                                                <i data-feather="trash-2"></i>
+                                                                Ngưng kích hoạt
+                                                            </a>
+                                                        </li> --}}
                                                     </ul>
                                                 </div>
                                             </td>

@@ -61,6 +61,7 @@
             .relation-chart .node-current {
                 display: inline-block;
             }
+
             .relation-chart .node-current {
                 margin-right: 10px;
             }
@@ -187,20 +188,27 @@
                     <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                         <h4 class="fw-semibold fs-18 mb-0">Bất động sản</h4>
                     </div>
-                    {{-- <div
-                        class="d-sm-flex justify-content-between align-items-center border-bottom border-color-gray pb-3 mb-3">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0">
-                                <img src="{{ asset('assets/images/pdf.svg') }}" alt="pdf">
+                    @if (empty($client->contracts))
+                        <span>Chưa có</span>
+                    @else
+                        @foreach ($client->contracts as $contract)
+                            <div
+                                class="d-sm-flex justify-content-between align-items-center border-bottom border-color-gray pb-3 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <img src="{{ asset('assets/images/pdf.svg') }}" alt="pdf">
+                                    </div>
+                                    <div class="flex-grow-1 ms-3 mw-300">
+                                        <h4 class="text-dark fs-15 fw-semibold text-body mb-0 lh-base">
+                                            {{ $contract['property']['name'] }}</h4>
+                                    </div>
+                                </div>
+                                <a class="text-gray-light mt-3 mt-sm-0 d-block"
+                                    href="{{ route('property.view', $contract['property']['id']) }}">Xem</a>
                             </div>
-                            <div class="flex-grow-1 ms-3 mw-300">
-                                <h4 class="text-dark fs-15 fw-semibold text-body mb-0 lh-base">Donald updated
-                                    the status of Refund #1234 to awaiting customer</h4>
-                            </div>
-                        </div>
-                        <span class="text-gray-light mt-3 mt-sm-0 d-block">54 Min ago</span>
-                    </div> --}}
-                    <span>Chưa có</span>
+                        @endforeach
+                    @endif
+
                 </div>
             </div>
         </div>
@@ -218,7 +226,7 @@
                                 <div class="flex-grow-1 ms-md-3 mt-3 mt-md-0">
                                     <span class="fs-15">Bất động sản</span>
                                     <div class="d-flex align-items-center justify-content-between mt-1 up-down">
-                                        <h3 class="body-font fw-bold fs-3 mb-0">0</h3>
+                                        <h3 class="body-font fw-bold fs-3 mb-0">{{ count($client->contracts) }}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +245,8 @@
                                 <div class="flex-grow-1 ms-md-3 mt-3 mt-md-0">
                                     <span class="fs-15">Kim cương</span>
                                     <div class="d-flex align-items-center justify-content-between mt-1 up-down">
-                                        <h3 class="body-font fw-bold fs-3 mb-0">0</h3>
+                                        <h3 class="body-font fw-bold fs-3 mb-0">
+                                            {{ is_null($client->wallet) ? 0 : $client->wallet['diamond'] }}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -256,14 +265,14 @@
                                 <div class="flex-grow-1 ms-md-3 mt-3 mt-md-0">
                                     <span class="fs-15">Điểm</span>
                                     <div class="d-flex align-items-center justify-content-between mt-1 up-down">
-                                        <h3 class="body-font fw-bold fs-3 mb-0">0</h3>
+                                        <h3 class="body-font fw-bold fs-3 mb-0">{{ is_null($client->wallet) ? 0 : $client->wallet['point'] }}</h3></h3>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-4 col-xl-6 col-md-6 col-lg-12 col-xxxl-6">
+                {{-- <div class="col-xxl-4 col-xl-6 col-md-6 col-lg-12 col-xxxl-6">
                     <div class="stats-box style-four card bg-white border-0 rounded-10 mb-4">
                         <div class="card-body p-4">
                             <div class="d-md-flex justify-content-between align-items-center">
@@ -281,7 +290,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div class="card bg-white border-0 rounded-10 mb-4">
                 <div class="card-body p-4">
@@ -395,7 +404,8 @@
             <div class="card bg-white border-0 rounded-10 mb-4">
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
-                        <h4 class="fw-semibold fs-18 mb-0">Mô hình quan hệ <span class="text-warning">(Beta)</span></h4>
+                        <h4 class="fw-semibold fs-18 mb-0">Mô hình quan hệ <span class="text-warning">(Beta)</span>
+                        </h4>
                     </div>
                     <div class="default-table-area my-task-list mw-100 relation-chart">
                         <div class="chart mw-100" id="relation-chart"></div>

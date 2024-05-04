@@ -7,6 +7,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\ContractController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,10 +47,30 @@ Route::middleware('auth')->group(function () {
         Route::get('/add', [ContentController::class, 'add'])->name('content.add');
         Route::post('/add', [ContentController::class, 'store'])->name('content.store');
     });
+
     Route::prefix('property')->group(function () {
         Route::get('/add', [PropertyController::class, 'add'])->name('property.add');
         Route::post('/add', [PropertyController::class, 'store'])->name('property.store');
         Route::get('/', [PropertyController::class, 'index'])->name('property.index');
+        Route::get('/{propertyid}', [PropertyController::class, 'view'])->name('property.view');
+        Route::get('/edit/{propertyid}', [PropertyController::class, 'edit'])->name('property.edit');
+        Route::put('/edit/{propertyid}', [PropertyController::class, 'update'])->name('property.update');
+    });
+
+    Route::prefix('contract')->group(function () {
+        Route::get('/add', [ContractController::class, 'add'])->name('contract.add');
+        Route::post('/store', [ContractController::class, 'store'])->name('contract.store');
+        Route::get('/view/{id}', [ContractController::class, 'view'])->name('contract.view');
+        Route::get('/', [ContractController::class, 'index'])->name('contract.index');
+        Route::get('/edit/{id}', [ContractController::class, 'edit'])->name('contract.edit');
+        Route::put('/update/{id}', [ContractController::class, 'update'])->name('contract.update');
+        Route::delete('/delete/{id}', [ContractController::class, 'delete'])->name('contract.delete');
+        Route::post('/transaction/{contractid}', [ContractController::class, 'confirmTransaction'])->name('contract.transaction');
+    });
+
+    Route::prefix('setting')->group(function () {
+        Route::get('/', [SettingController::class, 'index'])->name('setting.index');
+        Route::put('/', [SettingController::class, 'update'])->name('setting.update');
     });
 
 

@@ -35,8 +35,8 @@ class ClientAPIController extends APIController
 
     public function index(Request $request)
     {
-        $clientId = $request->user()->id;
-        $data = $this->_clientinterface->getClient($clientId);
+        $clientid = $request->user()->id;
+        $data = $this->_clientinterface->getClient($clientid);
         return $this->api_response($data->data, $data->statuscode, $data->success);
     }
 

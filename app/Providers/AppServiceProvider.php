@@ -9,6 +9,8 @@ use App\Repositories\Properties\PropertyRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Posts\PostRepository;
 use App\Interfaces\Post\PostRepositoryInterface;
+use App\Interfaces\Contract\ContractRepositoryInterface;
+use App\Repositories\Contracts\ContractRepository;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;
@@ -32,6 +34,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             PropertyRepositoryInterface::class,
             PropertyRepository::class
+        );
+
+        $this->app->singleton(
+            ContractRepositoryInterface::class,
+            ContractRepository::class
         );
     }
 
