@@ -1,5 +1,5 @@
 @props(['province', 'district', 'ward', 'selector'])
-<script defer>
+<script defer type="text/javascript">
     const loadingElement = `<option value="" disabled class="text-dark option-loading">Đang tải...</option>`,
         provinceElement = document.querySelector('select[name="province"]'),
         districtElement = document.querySelector('select[name="district"]'),

@@ -26,8 +26,8 @@
         </div>
     @endif
 @endsection
-<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js" derfer></script>
-<script>
+<script type="text/javascript" src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js" derfer></script>
+<script type="text/javascript">
     let fileData = [];
     let myDropzone = new Dropzone("{{ $selector }}", {
         url: "{{ $url }}",

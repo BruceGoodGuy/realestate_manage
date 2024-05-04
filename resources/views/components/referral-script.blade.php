@@ -1,4 +1,4 @@
-<script>
+<script type="text/javascript">
     const referralElement = document.querySelector('input[name="referral_code"]'),
         btnReferral = document.getElementById('btn-check-referral'),
         referralInformElement = document.querySelector('.referral-inform');

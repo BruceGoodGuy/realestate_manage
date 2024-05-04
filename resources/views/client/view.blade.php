@@ -415,9 +415,9 @@
         </div>
     </div>
     @section('javascript')
-        <script src="{{ asset('assets/js/raphael.js') }}"></script>
-        <script src="{{ asset('assets/js/Treant.js') }}"></script>
-        <script>
+        <script type="text/javascript" src="{{ asset('assets/js/raphael.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/Treant.js') }}"></script>
+        <script type="text/javascript">
             var nodeData = '@json($relations)';
             var chart_config = {
                 chart: {

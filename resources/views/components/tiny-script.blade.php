@@ -1,6 +1,6 @@
 @props(['selector'])
-<script src="{{ asset('assets/js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
-<script>
+<script src="{{ asset('assets/js/tinymce/tinymce.min.js') }}" referrerpolicy="origin" type="text/javascript"></script>
+<script type="text/javascript">
     const example_image_upload_handler = (blobInfo, progress) => new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.withCredentials = false;
