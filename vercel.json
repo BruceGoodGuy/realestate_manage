@@ -11,6 +11,10 @@
             "dest": "/public/assets/"
         },
         {
+            "src": "/api/v1/(.*)",
+            "dest": "/api/index.php"
+        },
+        {
             "src": "/(.*)",
             "dest": "/api/index.php"
         }
