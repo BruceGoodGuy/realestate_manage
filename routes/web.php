@@ -25,6 +25,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function() {
+    echo "_____php______";
+    echo env('APP_URL');
+    echo env('APP_URL');
+    echo env('DB_HOST');
+});
+
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])->name('dashboard');
 
